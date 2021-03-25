@@ -1,5 +1,5 @@
 
-## POC J2EE V1 : Vehicule, Commentaire, JWT Token Authentication
+## POC J2EE V1 : Vehicule, Commentaire, JWT Token Authentification
  
 Dans ce POC J2EE v1 j'implémente une application "Vehicle, Comment, JWT Token Authentication".
 
