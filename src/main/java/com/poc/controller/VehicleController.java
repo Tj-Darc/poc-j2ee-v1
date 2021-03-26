@@ -18,7 +18,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/api/v1")
-@Api(value = "Vehicle", description = "Rest API for Vehicle operations", tags = "Vehicle API")
+@Api(value = "Vehicle", tags = "Vehicle REST API")
 public class VehicleController {
 
 	@Autowired

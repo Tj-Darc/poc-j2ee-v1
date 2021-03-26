@@ -1,5 +1,7 @@
 package com.poc.request;
 
+//  classe modèle pour renvoyer le jeton en cas d'authentification réussie
+
 public class AuthenticationResponse {
 
 	private String token;

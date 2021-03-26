@@ -17,6 +17,9 @@ import com.poc.service.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
+
+//Autorisation l'URL /api/v1/register sans authentification
+
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -33,6 +36,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
+	// pour coder le mot de passe, puis le stockons dans la base de données
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
@@ -57,13 +61,25 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
+		
+			// Autorisation d'accès avec un rôle
 			.antMatchers("/api/v1/helloadmin").hasRole("ADMIN")
 			.antMatchers("/api/v1/hellouser").hasAnyRole("USER", "ADMIN")
 			.antMatchers(AUTH_WHITELIST).permitAll()
 			.antMatchers("/api/v1/login", "/api/v1/register").permitAll()
 			.anyRequest().authenticated().and()
-			.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+			
+			// Si une exception se produit, appelez ceci
+			.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
+			
+			/*
+			 *  assurez-vous que nous utilisons une session sans état; session ne sera pas utilisée 
+			 *  pour stocker l'état de l'utilisateur.
+			 */
+			.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+			
+			// Ajout d'un filtre pour valider les Token à chaque requête
 			.addFilterBefore(customJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 

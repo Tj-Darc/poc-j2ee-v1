@@ -1,5 +1,7 @@
 package com.poc.request;
 
+// La demande d'entrée JSON fournie par l'utilisateur sera annulée en objet Java à l'aide de cette classe.
+
 public class AuthenticationRequest {
 
 	private String username;

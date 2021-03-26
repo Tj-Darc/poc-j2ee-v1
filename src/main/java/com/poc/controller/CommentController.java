@@ -19,7 +19,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/api/v1")
-@Api(value = "Comment", description = "Rest API for Comment operations", tags = "Comment API")
+@Api(value = "Comment", tags = "Comment REST API")
 public class CommentController {
 
 	@Autowired

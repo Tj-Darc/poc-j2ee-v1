@@ -18,6 +18,12 @@ import com.poc.request.AuthenticationRequest;
 import com.poc.request.AuthenticationResponse;
 import com.poc.service.CustomUserDetailsService;
 
+/*
+ * 
+ * Une classe qui exposera une API POST REST pour prendre le nom d'utilisateur et le mot de passe de l'utilisateur 
+ * et si l'utilisateur est authentifié, renvoyez un jeton Web JSON
+ * 
+ */
 @RestController
 @RequestMapping(value = "/api/v1")
 public class AuthenticationController {
@@ -31,6 +37,7 @@ public class AuthenticationController {
 	@Autowired
 	private JwtUtil jwtUtil;
 
+	// Se connecter avec username/password
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
 			throws Exception {
@@ -48,6 +55,7 @@ public class AuthenticationController {
 		return ResponseEntity.ok(new AuthenticationResponse(token));
 	}
 
+	// S'inscrire avec username, password, email, role
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
 		return ResponseEntity.ok(userDetailsService.save(user));

@@ -16,6 +16,7 @@ import com.poc.dto.UserDTO;
 import com.poc.model.DAOUser;
 import com.poc.repository.UserRepository;
 
+// Responsable pour enregistrer le nouvel utilisateur dans la base de données à l'aide de UserRepository
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
@@ -30,6 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 		List<SimpleGrantedAuthority> roles = null;
 
+		// findByUsername pour récupérer les détails de l'utilisateur à partir de la base de données
 		DAOUser user = userDao.findByUsername(username);
 		if (user != null) {
 			roles = Arrays.asList(new SimpleGrantedAuthority(user.getRole()));

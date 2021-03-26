@@ -8,6 +8,7 @@ import com.poc.model.DAOUser;
 @Repository
 public interface UserRepository extends JpaRepository<DAOUser, Long> {
 
+	// pour obtenir l'utilisateur basé sur le nom d'utilisateur-
 	DAOUser findByUsername(String username);
 
 }

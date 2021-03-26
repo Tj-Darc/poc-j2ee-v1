@@ -30,7 +30,7 @@ public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 
 		try {
-			// Le jeton JWT se présente sous la forme «jeton porteur».
+			// Le jeton JWT se présente sous la forme "Bearer token". Supprimer Bearer word et
 			// obtenir uniquement le Token
 			String jwtToken = extractJwtFromRequest(request);
 
@@ -41,6 +41,11 @@ public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
 				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());
 
+				/*
+				 * Après avoir défini l'authentification dans le contexte, nous spécifions 
+				 * que l'utilisateur actuel est authentifié. Alors ça passe la configurations de sécurité Spring avec succès.
+				*/
+				
 				SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 			} else {
 				System.out.println("Cannot set the Security Context");

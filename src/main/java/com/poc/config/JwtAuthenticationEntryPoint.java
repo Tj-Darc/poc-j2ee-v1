@@ -14,6 +14,13 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/*
+ * 
+ *  Cette classe est utilisée pour renvoyer une erreur 401 non autorisée aux clients qui tentent d'accéder 
+ *  à une ressource protégée sans authentification appropriée.
+ *
+*/
+
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
@@ -23,11 +30,13 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-
+		
+		// Vérifie si la demande est une exception que nous avons stockée dans Request
 		Exception exception = (Exception) request.getAttribute("exception");
 
 		String message;
 
+		// Si oui, utilisez-le pour créer le message de réponse sinon utilisez authException
 		if (exception != null) {
 
 			if (exception.getCause() != null) {

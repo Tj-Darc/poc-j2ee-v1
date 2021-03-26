@@ -25,6 +25,9 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
 @Service
+
+//  cette classe aura des méthodes utilitaires correspondant au JWT comme create JWT, vérifiez si JWT est valide.
+
 public class JwtUtil {
 
 	private String secret;
@@ -40,6 +43,7 @@ public class JwtUtil {
 		this.jwtExpirationInMs = jwtExpirationInMs;
 	}
 
+	// générer un jeton pour l'utilisateur
 	public String generateToken(UserDetails userDetails) {
 		Map<String, Object> claims = new HashMap<>();
 
@@ -62,8 +66,11 @@ public class JwtUtil {
 
 	}
 
+	// Validation token
 	public boolean validateToken(String authToken) {
 		try {
+			
+			// Le jeton Jwt n'a pas été falsifié
 			Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(authToken);
 			return true;
 		} catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
